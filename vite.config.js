@@ -11,4 +11,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // AJOUTEZ CETTE LIGNE :
+  base: '/Underground-music-hub/', // Assurez-vous que c'est le nom exact de votre dépôt GitHub
 })
+
