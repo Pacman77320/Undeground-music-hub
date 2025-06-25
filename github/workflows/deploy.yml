@@ -1,0 +1,33 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Déclenche le workflow à chaque push sur la branche main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # Exécute le job sur un environnement Ubuntu
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Récupère le code de votre dépôt
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Utilisez la version de Node.js que vous utilisez localement (ex: '18', '20')
+
+      - name: Install dependencies
+        run: npm install # Installe les dépendances de votre projet
+
+      - name: Build project
+        run: npm run build # Exécute la commande de build de votre projet Vite
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist # Spécifie le dossier à déployer (votre dossier dist)
+          publish_branch: gh-pages # Déploie sur une branche gh-pages (créée automatiquement)
+          # cname: votre-domaine.com # Décommentez et remplacez si vous avez un domaine personnalisé
